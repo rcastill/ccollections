@@ -8,6 +8,7 @@ typedef void* array_t;
 array_t array_alloc(size_t item_size, size_t length);
 void    array_free(array_t array);
 size_t  array_length(array_t array);
+void    array_iterate(array_t, void(*)(size_t, void*));
 
 // Primitive types
 void __clean_char(char**);

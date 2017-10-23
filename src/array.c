@@ -42,3 +42,13 @@ size_t array_length(array_t array)
   __array_meta_t* meta = array; meta -= 1;
   return meta->length;
 }
+
+void array_iterate(array_t array, void(*it)(size_t,void*))
+{
+  __array_meta_t* meta = array; meta -= 1;
+  char* data           = array;
+
+  for (size_t i = 0; i < meta->length; i++) {
+    it(i, data + i * meta->item_size);
+  }
+}

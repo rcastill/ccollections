@@ -1,17 +1,24 @@
 #include <stdio.h>
 #include "array.h"
 
+void array_consumer(size_t i, void* obscure_item)
+{
+  int* item = obscure_item;
+  printf("numbers[%lu] = %d\n", i, *item);
+}
+
+void set_squared(size_t i, void* obscure_item)
+{
+  int* item = obscure_item;
+  *item = i * 2;
+}
+
 int main(int argc, char const *argv[])
 {
   unique_array(int) numbers = array_alloc(sizeof(int), 10);
-  printf("numbers.length = %lu\n", array_length(numbers));
-
-  for (int i = 0; i < array_length(numbers); i++) {
-    numbers[i] = i * 2;
-  }
-  for (int i = array_length(numbers) - 1; i >= 0; i--) {
-    printf("%d\n", numbers[i]);
-  }
+  printf("array_length(numbers) = %lu\n", array_length(numbers));
+  array_iterate(numbers, set_squared);
+  array_iterate(numbers, array_consumer);
 
   return 0;
 }
